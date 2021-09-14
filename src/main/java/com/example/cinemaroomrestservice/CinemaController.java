@@ -11,27 +11,25 @@ import java.util.UUID;
 public class CinemaController {
     Cinema cinema = new Cinema();
 
-    @GetMapping("/seats")
+    @GetMapping("/cinema")
     public Cinema getCinema() {
-        return this.cinema;
+        return cinema;
     }
 
     @PostMapping("/purchase")
     public ResponseEntity<?> purchaseSeat(@RequestBody Seat seat) {
-        String token = UUID.randomUUID().toString();
+        UUID token = UUID.randomUUID();
         try {
-            this.cinema.bookTicket(token, seat);
+            return ResponseEntity.ok(cinema.bookTicket(token, seat));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
-        //return last ticket
-        return ResponseEntity.ok(this.cinema.getPurchasedTickets().get(this.cinema.getPurchasedTickets().size() - 1));
     }
 
     @PostMapping("/return")
     public ResponseEntity<?> returnTicket(@RequestBody String token) {
         try {
-            return ResponseEntity.ok(Map.of("returned_ticket", this.cinema.returnTicket(token)));
+            return ResponseEntity.ok(Map.of("returned_ticket", cinema.returnTicket(token)));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
@@ -43,6 +41,6 @@ public class CinemaController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
                     "error", "The password is wrong!"));
         }
-        return ResponseEntity.ok(this.cinema.getStats());
+        return ResponseEntity.ok(cinema.getStats());
     }
 }

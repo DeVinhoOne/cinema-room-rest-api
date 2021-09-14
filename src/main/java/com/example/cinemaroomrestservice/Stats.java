@@ -7,15 +7,15 @@ public class Stats {
     private int numberOfPurchasedTickets;
 
     public void purchaseUpdate(int price) {
-        this.numberOfPurchasedTickets++;
-        this.numberOfAvailableSeats--;
-        this.currentIncome += price;
+        numberOfPurchasedTickets++;
+        numberOfAvailableSeats--;
+        currentIncome += price;
     }
 
     public void returnUpdate(int price) {
-        this.numberOfPurchasedTickets--;
-        this.numberOfAvailableSeats++;
-        this.currentIncome -= price;
+        numberOfPurchasedTickets--;
+        numberOfAvailableSeats++;
+        currentIncome -= price;
     }
 
     public int getCurrentIncome() {

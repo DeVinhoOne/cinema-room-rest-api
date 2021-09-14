@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Seat implements Comparable<Seat> {
 
-    private int row;
-    private int column;
-    private int price;
+    private final int row;
+    private final int column;
+    private final int price;
 
     public Seat(int row, int column) {
         this.row = row;
@@ -18,24 +18,12 @@ public class Seat implements Comparable<Seat> {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public int getRow() {
         return row;
     }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
     public int getColumn() {
         return column;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
     }
 
     @Override
@@ -47,21 +35,21 @@ public class Seat implements Comparable<Seat> {
             return false;
         }
         Seat seat = (Seat) o;
-        return this.row == seat.getRow() && this.column == seat.getColumn() && this.price == seat.getPrice();
+        return row == seat.getRow() && column == seat.getColumn() && price == seat.getPrice();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.row, this.column, this.price);
+        return Objects.hash(row, column, price);
     }
 
     @Override
     public int compareTo(Seat s) {
-        if (this.row > s.row) {
+        if (row > s.row) {
             return 1;
-        } else if (this.row < s.row) {
+        } else if (row < s.row) {
             return -1;
         }
-        return Integer.compare(this.column, s.column);
+        return Integer.compare(column, s.column);
     }
 }
